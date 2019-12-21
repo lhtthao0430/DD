@@ -1,6 +1,6 @@
-import numpy as np
+import math 
 
-def DD(infile):
+def NaiveDecode(infile):
     M = [] # test design
     f = open(infile, 'r')
     temp = f.readline().split(' ')
@@ -32,10 +32,23 @@ def DD(infile):
             if columnIndex[j] == '0':
                 if M[i] & (1 << (n - j - 1)) != 0:
                     M[i] = M[i] ^ (1 << (n - j - 1))
-    return M, n
+    return M
 
 if __name__ == "__main__":
-    M, n = DD("input.txt")
-    for i in M:
-        print(bin(i)[2:].zfill(n))
+    X = NaiveDecode("input.txt")
+
+    # DD
+    K = []
+    for i in X:
+        if i != 0 and math.ceil(math.log(i, 2)) == math.floor(math.log(i, 2)): # check if i is power of 2 or there is only one number 1 in a test
+            K.append(int(math.log(i, 2)))
+    print("DD = ", K)
+
+     # COMP
+    K = set()
+    for i in X:
+        if i != 0:
+            K.add(int(math.log(i, 2)))
+    K = list(K)
+    print("COMP = ", K)
     pass
