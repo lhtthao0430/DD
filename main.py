@@ -14,14 +14,15 @@ def DD(infile):
 
         for j in range(0, len(temp) - 1):
             if temp[j] == '1':
-                tempK = tempK ^ (1 << (len(temp) - j - 2)) #set ith bit
+                tempK = tempK ^ (1 << (len(temp) - j - 2)) # set ith bit
         K.append(tempK)
 
         if temp[-1].rstrip() == '0': # if outcome = 0
             for j in range(0, n):
-                if K[i] & (1 << j) != 0: # check if ith bit is 1
+                if K[i] & (1 << j) != 0: # if ith bit = 1
                     if columnIndex & (1 << j) != 0:
                         columnIndex = columnIndex ^ (1 << j)
+
     columnIndex = bin(columnIndex)
     columnIndex = columnIndex[2:].zfill(n)
     for i in range(0, len(K)):
